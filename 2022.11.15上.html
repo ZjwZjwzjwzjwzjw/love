@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        .wrap {
+            cursor: pointer;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            background-color: #000;
+            animation: move 1s linear infinite alternate;
+        }
+
+        /* .text_box {
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            color: #ff437b;
+            z-index: 100;
+        } */
+
+        @keyframes move {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        .left,
+        .right {
+            width: 100px;
+            height: 160px;
+            float: left;
+            background-color: pink;
+            border-radius: 50px 50px 0 0;
+            box-shadow: 0 0 20px 0 pink;
+
+        }
+
+        .left {
+            transform: translateX(29px) rotate(-45deg);
+
+        }
+
+        .right {
+            transform: translateX(-29px) rotate(45deg);
+        }
+
+        .desc {
+            color: pink;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="desc">
+        <span id="text"></span>
+        <span id="bar">|</span>
+    </div>
+    <div class="wrap" onclick="love()" id="show">
+        <div class="left"></div>
+        <div class="right"></div>
+        <!-- <div class="text_box">
+            张静怡
+            <button id="btn" onclick="fn()">❤️</button>
+        </div> -->
+    </div>
+</body>
+<script>
+    function love() {
+        console.log(11);
+        var box = document.getElementsByClassName('wrap')[0]
+        var box1 = document.getElementsByClassName('desc')[0]
+        box.style.display = 'none'
+        box1.style.display = 'block'
+    }
+    var i = 0;
+    var str = "世界奇奇怪怪，愿你可可爱爱！";
+    //自动打字效果
+    function typing() {
+        var mydiv = document.getElementById("text");
+        document.getElementById("bar").style.cssText = "display:none";
+        mydiv.innerText = str.substring(0, i++) + (i > str.length ? "" : "|");
+        var typingTimer = setTimeout(typing, 350);
+        if (i > str.length) {
+            clearTimeout(typingTimer);
+            // 竖杠闪烁效果
+            var twinkleTimer = setInterval(twinkle, 350);
+            setTimeout(function () {
+                clearInterval(twinkleTimer);
+                document.getElementById("bar").style.cssText = "display:none";
+                //自动删除文字效果
+                // deleteText();
+            }, 3000);
+        }
+    }
+    typing();
+
+    //自动删除文字效果
+    function deleteText() {
+        var mydiv = document.getElementById("text");
+        mydiv.innerText = str.substring(0, i--) + "|";
+        var deleteTextTimer = setTimeout(deleteText, 50);
+        if (i < 0) {
+            clearTimeout(deleteTextTimer);
+            //删除完后，自动打字，达到循环
+            typing();
+        }
+    }
+
+    // 竖杠闪烁效果
+    var flag = 0;
+    function twinkle() {
+        if (flag) {
+            document.getElementById("bar").style.cssText = "color:#fff;";
+            flag = 0;
+        } else {
+            document.getElementById("bar").style.cssText = "color:#ffffff47;";
+            flag = 1;
+        }
+    }
+</script>
+
+</html>
